@@ -5,8 +5,8 @@ public class Monk extends Person {
     protected int healVal;
     protected int healPrice;
     protected int attackPrice;
-    public Monk (String name, int age){
-        super(name, 90, 30, age, 10, 40, "stick", 30);
+    public Monk (String name, int x, int y){
+        super(name, 90, 30, 50, 10, 40, "stick", 30, x, y);
     }
     public void attack(Person person) {
 
