@@ -1,23 +1,28 @@
 import Units.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
         teamA = createTeam(0, 0);
         teamB = createTeam(0, 3);
-        System.out.println(teamA);
-        System.out.println(teamB);
-
-        Sniper sniper = new Sniper("Noname", 7, 5);
-        Person target = sniper.findNearestEnemy(teamA);
-        System.out.println("target from teamA is " + target);
-        target = sniper.findNearestEnemy(teamB);
-        System.out.println("target from teamB is " + target);
+        all.addAll(teamA);
+        all.addAll(teamB);
+        all.sort(new PrioritySort());
+        for (Person hero : all){
+            System.out.println(hero + " makes step");
+            if (teamA.contains(hero)){
+                hero.step(teamB);
+            } else {
+                hero.step(teamA);
+            }
+        }
     }
     public static ArrayList<Person> teamA = new ArrayList<Person>();
     public static ArrayList<Person> teamB = new ArrayList<Person>();
+    public static ArrayList<Person> all = new ArrayList<>();
     private static ArrayList<Person> createTeam(int val, int num){
         ArrayList<Person> team = new ArrayList<Person>();
         int teamCount = 10;

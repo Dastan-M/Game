@@ -1,29 +1,26 @@
 package Units;
 
+
 import java.util.Random;
 
-public abstract class Person {
+public abstract class Person implements GameInterface {
     protected static Random rnd;
     static { rnd = new Random();}
 
     protected String name;
-    protected int health;
-    protected int power;
-    protected int age;
-    protected int armor;
-    protected int endurance;
+    protected int health, power, age, armor, agility, defence, endurance, priority;
     protected String weapon;
-    protected int gold;
     protected Position position;
-        public Person(String name, int health, int power, int age, int armor, int endurance, String weapon, int gold, int x, int y){
+    boolean isDie = Boolean.FALSE;
+        public Person(String name, int priority, int health, int power, int age, int armor, int endurance, String weapon, int x, int y){
         this.name = name;
+        this.priority = priority;
         this.health = health;
         this.power = power;
         this.age = age;
         this.armor = armor;
         this.endurance = endurance;
         this.weapon = weapon;
-        this.gold = gold;
         this.position = new Position(x, y);
     }
 
@@ -43,13 +40,21 @@ public abstract class Person {
         int n = (origin * percent) / 100;
         return origin + (rnd.nextInt(0, n * 2 + 1) - n);
     }
-//    public int getDamage(int damage){
-//            boolean probability = (this.agility/2) >= rnd.nextInt(100);
-//            if (probability)
-//                return 0;
-//            int loss = damage - (this.defence * damage) / 100;
-//            loss = Math.min(loss, this.health);
-//            this.health -= loss;
-//            return loss;
-//    }
+    public int getDamage(int damage){
+            boolean probability = (this.agility/2) >= rnd.nextInt(100);
+            if (probability){
+                System.out.println(name + ": you've missed!");
+                return 0;
+            }
+            int loss = damage - (this.defence * damage) / 100;
+            loss = Math.min(loss, this.health);
+            this.health -= loss;
+            if (this.health <= 0){
+                System.out.println(name + ": I'm out!");
+            }
+            return loss;
+    }
+    public boolean isDie(){
+            return isDie;
+    }
 }

@@ -1,12 +1,14 @@
 package Units;
 
+import java.util.ArrayList;
+
 public class Monk extends Person {
     protected int mana;
     protected int healVal;
     protected int healPrice;
     protected int attackPrice;
     public Monk (String name, int x, int y){
-        super(name, 90, 30, 50, 10, 40, "stick", 30, x, y);
+        super(name, 1, 90, 30, 50, 10, 40, "stick", x, y);
     }
     public void attack(Person person) {
 
@@ -22,5 +24,10 @@ public class Monk extends Person {
         if (action == "heal") return healPrice;
         else if (action == "attack") return attackPrice;
         return 0;
+    }
+
+    @Override
+    public void step(ArrayList<Person> enemies) {
+
     }
 }
