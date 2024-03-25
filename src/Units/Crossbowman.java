@@ -37,7 +37,7 @@ public class Crossbowman extends Person {
         return target;
     }
     @Override
-    public void step(ArrayList<Person> enemies) {
+    public void step(ArrayList<Person> enemies, ArrayList<Person> friends) {
         if (health <= 0 && arrowsNum <= 0) {
             if (arrowsNum <= 0){
                 System.out.println(name + ": no arrows!");

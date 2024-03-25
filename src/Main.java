@@ -10,15 +10,17 @@ public class Main {
         teamB = createTeam(0, 3);
         all.addAll(teamA);
         all.addAll(teamB);
-        all.sort(new PrioritySort());
+
+        for (int i = 0; i < 3; i++) {
         for (Person hero : all){
             System.out.println(hero + " makes step");
             if (teamA.contains(hero)){
-                hero.step(teamB);
+                hero.step(teamB, teamA);
             } else {
-                hero.step(teamA);
+                hero.step(teamA, teamB);
             }
         }
+    }
     }
     public static ArrayList<Person> teamA = new ArrayList<Person>();
     public static ArrayList<Person> teamB = new ArrayList<Person>();

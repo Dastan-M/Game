@@ -34,6 +34,7 @@ public abstract class Person implements GameInterface {
         double targetDistance = Math.sqrt(Math.pow(position.getX()-target.position.getX(), 2) + Math.pow(position.getY()-target.position.getY(), 2));
         return targetDistance;
     }
+
     private int getRound(int origin, int percent) {
         if (percent > origin)
             return origin;

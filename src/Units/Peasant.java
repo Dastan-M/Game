@@ -20,7 +20,7 @@ public class Peasant extends Person {
     }
 
     @Override
-    public void step(ArrayList<Person> enemies) {
+    public void step(ArrayList<Person> enemies, ArrayList<Person> friends) {
 
     }
 }
