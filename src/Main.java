@@ -3,24 +3,45 @@ import Units.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        teamA = createTeam(0, 0);
-        teamB = createTeam(0, 3);
+        teamA = createTeam(10, 0);
+        teamB = createTeam(10, 3);
         all.addAll(teamA);
         all.addAll(teamB);
+//        all.sort(new PrioritySort());
+        all.sort((o1, o2) -> Integer.compare(o2.priority, o1.priority));
 
-        for (int i = 0; i < 3; i++) {
+//        for (int i = 0; i < 10; i++) {
+        Scanner scanner = new Scanner(System.in);
+        while (true){
+        View.view();
         for (Person hero : all){
-            System.out.println(hero + " makes step");
+//            System.out.println(hero + " makes step");
             if (teamA.contains(hero)){
                 hero.step(teamB, teamA);
             } else {
                 hero.step(teamA, teamB);
             }
         }
+        scanner.nextLine();
+        if (!isAlive(teamA)){
+            System.out.println("teamB is winner!");
+            break;
+        } if (!isAlive(teamB)){
+                System.out.println("teamA is winner!");
+                break;
+            }
+        }
     }
+    private static boolean isAlive(ArrayList<Person> team){
+        for (Person person : team) {
+            if (person.getHealth() > 0)
+                return true;
+        }
+        return false;
     }
     public static ArrayList<Person> teamA = new ArrayList<Person>();
     public static ArrayList<Person> teamB = new ArrayList<Person>();

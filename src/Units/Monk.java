@@ -28,6 +28,15 @@ public class Monk extends Person {
 
     @Override
     public void step(ArrayList<Person> enemies, ArrayList<Person> friends) {
-
+    }
+    @Override
+    public String toString() {
+        return "Peasant{" + name +
+                " ❤=" + health + ", " + position.getX() + ":" + position.getY() +
+                '}';
+    }
+    @Override
+    public String getInfo() {
+        return "Monk";
     }
 }

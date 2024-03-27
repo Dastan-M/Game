@@ -13,41 +13,41 @@ public class Crossbowman extends Person {
     }
 
     public void attack(Person person) {
-        System.out.println(name + " attacked " + person.name);
+//        System.out.println(name + " attacked " + person.name);
         arrowsNum--;
         int damage = this.power;
         person.health -= this.power;
         int res = person.getDamage(damage);
-        System.out.println(" and gives " + res + " damage.");
+//        System.out.println(" and gives " + res + " damage.");
     }
 
     public boolean isInGame() {
         return this.arrowsNum != 0;
     }
 
-    public Person findNearestEnemy(ArrayList<Person> enemies) {
-        Person target = null;
-        double distance = Double.MAX_VALUE;
-        for (Person hero : enemies) {
-            if (hero.getDistance(this) < distance) {
-                distance = hero.getDistance(this);
-                target = hero;
-            }
-        }
-        return target;
-    }
     @Override
     public void step(ArrayList<Person> enemies, ArrayList<Person> friends) {
         if (health <= 0 && arrowsNum <= 0) {
-            if (arrowsNum <= 0){
-                System.out.println(name + ": no arrows!");
-            }
+//            if (arrowsNum <= 0){
+//                System.out.println(name + ": no arrows!");
+//            }
             return;
         }
         Person target = this.findNearestEnemy(enemies);
         if (target != null) {
             this.attack(target);
         }
+    }
+    @Override
+    public String toString() {
+        return "Peasant{" + name +
+                " ❤=" + health + ", " + position.getX() + ":" + position.getY() +
+                '}';
+    }
+
+    @Override
+    public String getInfo() {
+        return "Crossbowman " + definition;
     }
 
     public int getArrowsNum() {
