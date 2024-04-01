@@ -6,6 +6,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+    public static ArrayList<Person> teamA = new ArrayList<Person>();
+    public static ArrayList<Person> teamB = new ArrayList<Person>();
+    public static ArrayList<Person> all = new ArrayList<>();
+
     public static void main(String[] args) {
         teamA = createTeam(10, 0);
         teamB = createTeam(10, 3);
@@ -16,40 +20,39 @@ public class Main {
 
 //        for (int i = 0; i < 10; i++) {
         Scanner scanner = new Scanner(System.in);
-        while (true){
-        View.view();
-        for (Person hero : all){
+        while (true) {
+            View.view();
+            for (Person hero : all) {
 //            System.out.println(hero + " makes step");
-            if (teamA.contains(hero)){
-                hero.step(teamB, teamA);
-            } else {
-                hero.step(teamA, teamB);
+                if (teamA.contains(hero)) {
+                    hero.step(teamB, teamA);
+                } else {
+                    hero.step(teamA, teamB);
+                }
             }
-        }
-        scanner.nextLine();
-        if (!isAlive(teamA)){
-            System.out.println("teamB is winner!");
-            break;
-        } if (!isAlive(teamB)){
+            scanner.nextLine();
+            if (!isAlive(teamA)) {
+                System.out.println("teamB is winner!");
+                break;
+            }
+            if (!isAlive(teamB)) {
                 System.out.println("teamA is winner!");
                 break;
             }
         }
     }
-    private static boolean isAlive(ArrayList<Person> team){
+
+    private static boolean isAlive(ArrayList<Person> team) {
         for (Person person : team) {
             if (person.getHealth() > 0)
                 return true;
         }
         return false;
     }
-    public static ArrayList<Person> teamA = new ArrayList<Person>();
-    public static ArrayList<Person> teamB = new ArrayList<Person>();
-    public static ArrayList<Person> all = new ArrayList<>();
+
     private static ArrayList<Person> createTeam(int val, int num){
         ArrayList<Person> team = new ArrayList<Person>();
-        int teamCount = 10;
-        for (int i = 0; i < teamCount; i++) {
+        for (int i = 0; i < 10; i++) {
             switch (new Random().nextInt(4) + num){
                 case 0:
                     team.add(new Crossbowman(getName(), 0, i));
@@ -76,7 +79,8 @@ public class Main {
         }
         return team;
     }
-    private static String getName(){
-        return String.valueOf(Names.values()[new Random().nextInt(Names.values().length-1)]);
+
+    private static String getName() {
+        return String.valueOf(Names.values()[new Random().nextInt(Names.values().length - 1)]);
     }
 }

@@ -12,9 +12,13 @@ public abstract class Person implements GameInterface {
     }
 
     protected String name;
-    protected int health, power, age, armor, agility, defence, endurance;
+    protected int health;
     public int priority;
-    protected String weapon;
+    protected final int maxHealth;
+    protected final int power;
+    protected final int agility;
+    protected final int defence;
+    protected int distance;
     protected Position position;
     boolean isDie = Boolean.FALSE;
     protected int x, y;
@@ -23,20 +27,17 @@ public abstract class Person implements GameInterface {
     static {width = 10; height = 10;}
     protected String definition;
 
-    public Person(String name, int priority, int health, int power, int age, int armor, int endurance, String weapon, int x, int y) {
+    protected Person(String name, int priority, int health, int power, int agility, int defence, int distance, int x, int y) {
         this.name = name;
         this.priority = priority;
-        this.health = health;
-        this.power = power;
-        this.age = age;
-        this.armor = armor;
-        this.endurance = endurance;
-        this.weapon = weapon;
+        this.health = getRound(health, 10);
+        this.maxHealth = this.health;
+        this.power = getRound(power, 10);
+        this.agility = getRound(agility, 10);
+        this.defence = defence;
+        this.distance = distance;
         this.position = new Position(x, y);
         this.definition = "";
-    }
-
-    public Person(String name) {
     }
 
     public String toString() {
@@ -48,13 +49,15 @@ public abstract class Person implements GameInterface {
         return targetDistance;
     }
 
-    private int getRound(int origin, int percent) {
+    protected int getRound(int origin, int percent) {
         if (percent > origin)
             return origin;
         int n = (origin * percent) / 100;
         return origin + (rnd.nextInt(0, n * 2 + 1) - n);
     }
-
+    public void setPosition(int x, int y){position.setXY(x, y);}
+    public Position getPosition(){return position;}
+    public void healed(int health){this.health = Math.min(this.health + health, this.maxHealth);}
     public int getDamage(int damage) {
         boolean probability = (this.agility / 2) >= rnd.nextInt(100);
         if (probability) {
@@ -78,10 +81,10 @@ public abstract class Person implements GameInterface {
             this.y += dy;
         }
     }
-    public Person findNearestEnemy(ArrayList<Person> enemies) {
+    public Person findNearestEnemy(ArrayList<Person> persons) {
         Person target = null;
         float distance = Float.MAX_VALUE;
-        for (Person hero : enemies) {
+        for (Person hero : persons) {
             float dist = position.distanceTo(hero.position);
             if (dist < distance) {
                 distance = dist;

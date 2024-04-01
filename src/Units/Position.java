@@ -44,12 +44,6 @@ public class Position {
 //        list.add(y);
 //        return list;
 //    }
-//    public int getX(){
-//        return x;
-//    }
-//    public int getY(){
-//        return y;
-//    }
 }
 
     public float fastDistance(Position other, int dx, int dy) {
@@ -60,7 +54,7 @@ public class Position {
     }
 
     public Position getDelta(Position other) {
-        return new Position(other.getX() - x, other.getY() - y);
+        return new Position(other.getX() - getX(), other.getY() - getY());
     }
 
     public float distanceTo(Position target) {
@@ -69,7 +63,7 @@ public class Position {
         return (float) Math.sqrt(x*x + y*y);
     }
 
-    public void increment(int dx, int dy) {
+    public void add(int dx, int dy) {
         x += dx;
         y += dy;
     }
@@ -77,4 +71,5 @@ public class Position {
     public boolean check(Position pt) {
         return this.x == pt.getX() && this.y == pt.getY();
     }
+    public String toString(){return x + ":" + y;}
 }
